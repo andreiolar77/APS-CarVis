@@ -1,2 +1,19 @@
 # APS-CarVis
 CarVis model
+
+This model is tasked with solving the issue of Lane Detection.
+
+In order to understand what our model is attempting to do, we must first understand the problem we are trying to solve.
+
+In our car-centric society, a heavy emphasis is placed on driver safety. There have been a number of innovations in this field throughout the years, though a major one that is commonplace is lane detection/lane assist. First originating in Mercedes Actros trucks, The first instance of commercial lane detection software was a system dubbed AutoVue, made by Iteris Inc. \citep{andreiresearch}. The system used onboard video cameras for image processing, and only performed the task of telling drivers when they were deviating from their lane. Since this first starting point, there have been many innovations in the field, and such technology has become an expectation rather than a novelty.
+
+Though we are no longer in 2001, there is still a great deal of interest in developing better lane detection software. The main use-case being in autonomous vehicles, a sector projected to grow to a gross 65 million units by 2030 \citep{edwardresearch}.  Lane detection can be argued to be the most fundamental component of autonomous vehicles, and is a problem best tackled via machine learning. Ensuring that the models for this problem are highly accurate is crucial to ensure the safety of passengers and the feasibility of widespread use in the future. 
+
+For our project, we decided to focus on this machine learning aspect of lane detection. The major outline of our model is a recurrent convolutional neural network (RCNN) with Encoder and Decoder aspects. We chose this model since it proved to be the most versatile of all models that we researched, and provided a way for us to increase model accuracy in "difficult" situations, which will be discussed more in depth later. This is a major aspect of a problem such as this, where we want to apply the same software to a wide variety of different situations. Machine learning provides a robust pathway to developing a self-driving system. Since no two driving situations are the same, using statistical or deterministic algorithms for autonomous driving leaves large room for error in their applicability to different environments. For example, our baseline model is deterministic and falls short in situations where the road bends. A machine-learning approach is more reliable and allows for greater versatility. 
+
+In its current version, the model takes in individual images of the perspective of a road from a car. It subsequently identifies lane markings on the road and outputs specifications of the location of the lane lines in the field of view. In the future, we will look into implementing a model that also uses the previous 5 frames of input to model the output. This will allow for enhanced accuracy in lane prediction (track continuity). Though we are not training this model on a continuous set of data, like on a video feed, this is something we want to implement as a second iteration.
+
+Regular CNNs excel at image and speech classification. While similar, classification is not the same as object detection and a regular CNN will not translate its function optimally. One major difference is that in object detection the length of the output layer is variable, as you do not know beforehand how many object you are identifying. Thus, a regular CNN can not be used optimally. Thus, we chose to use an improvement on the traditional CNN that is built specifically for the job of object detection for this project.
+
+A RCNN avoids the problem mentioned above by keeping a record of previous frames, with more recent ones being weighed more heavily in considerations. This helps the model process current frames by comparing them to previous known outputs, and correlating patterns. 
+
